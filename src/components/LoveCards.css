@@ -1,0 +1,87 @@
+/* =========================================================
+   COSAS QUE AMO DE TI
+   ========================================================= */
+
+.love-cards__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: clamp(0.8rem, 2.4vw, 1.1rem);
+}
+
+.love-card {
+  position: relative;
+  padding: clamp(1.4rem, 4vw, 1.9rem) 1.35rem 1.5rem;
+  border-radius: var(--radius);
+  background: linear-gradient(160deg, rgba(167, 139, 250, 0.12), rgba(167, 139, 250, 0.03));
+  border: 1px solid rgba(196, 181, 253, 0.15);
+  overflow: hidden;
+  transition: transform 0.55s var(--ease), border-color 0.55s ease,
+    background 0.55s ease, box-shadow 0.55s ease;
+}
+
+.love-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    120% 90% at 20% 0%,
+    rgba(139, 92, 246, 0.3),
+    transparent 62%
+  );
+  opacity: 0;
+  transition: opacity 0.55s ease;
+}
+
+.love-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(196, 181, 253, 0.4);
+  box-shadow: 0 26px 60px -26px rgba(109, 60, 199, 0.8);
+}
+
+.love-card:hover::before {
+  opacity: 1;
+}
+
+.love-card__icon {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  color: var(--lavender);
+  background: rgba(167, 139, 250, 0.14);
+  border: 1px solid rgba(196, 181, 253, 0.2);
+  margin-bottom: 1.1rem;
+  transition: transform 0.55s var(--ease), background 0.55s ease, color 0.55s ease;
+}
+
+.love-card:hover .love-card__icon {
+  transform: translateY(-2px) rotate(-6deg);
+  background: rgba(139, 92, 246, 0.3);
+  color: var(--white);
+}
+
+.love-card__title {
+  position: relative;
+  font-size: 1.06rem;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 0.45rem;
+}
+
+.love-card__text {
+  position: relative;
+  font-size: 0.88rem;
+  line-height: 1.68;
+  color: var(--text-soft);
+}
+
+.love-card__num {
+  position: absolute;
+  top: 1.1rem;
+  right: 1.2rem;
+  font-family: var(--font-script);
+  font-size: 1.3rem;
+  color: rgba(196, 181, 253, 0.28);
+}

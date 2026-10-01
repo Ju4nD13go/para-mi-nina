@@ -1,0 +1,421 @@
+/* =========================================================
+   CARTA INTERACTIVA
+   ========================================================= */
+
+.letter-section {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  /* El halo del sobre se sale a propósito: se recorta aquí para
+     que nunca empuje la página hacia los lados */
+  overflow: hidden;
+}
+
+.letter-section__inner {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Sobre ---------- */
+
+.envelope-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.envelope-stage__lead {
+  color: var(--text-soft);
+  font-size: 0.98rem;
+  text-align: center;
+  max-width: 34ch;
+}
+
+.envelope {
+  position: relative;
+  width: min(90vw, 420px);
+  aspect-ratio: 5 / 3.1;
+  perspective: 1200px;
+  border-radius: var(--radius-sm);
+}
+
+.envelope__glow {
+  position: absolute;
+  inset: -22%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.28), transparent 65%);
+  filter: blur(30px);
+  animation: envelopeGlow 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes envelopeGlow {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.07);
+  }
+}
+
+/* Cuerpo del sobre */
+.envelope__back {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(160deg, #3a2160 0%, #2a1547 55%, #1c0e2e 100%);
+  box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* Cartita que asoma */
+.envelope__card {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 10%;
+  height: 78%;
+  border-radius: 10px 10px 4px 4px;
+  background: linear-gradient(170deg, #f6f1ff 0%, #e7dcff 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  box-shadow: 0 -6px 22px rgba(0, 0, 0, 0.3);
+  transform-origin: 50% 100%;
+  transition: transform 0.9s var(--ease);
+  padding: 1rem;
+  text-align: center;
+}
+
+.envelope__card-name {
+  font-size: clamp(1.5rem, 7vw, 2.2rem);
+  color: #3d1d78;
+  line-height: 1.1;
+}
+
+.envelope__card-hint {
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(61, 29, 120, 0.5);
+}
+
+/* Solapa frontal */
+.envelope__front {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(
+    0 0,
+    50% 46%,
+    100% 0,
+    100% 26%,
+    50% 78%,
+    0 26%
+  );
+  background: linear-gradient(200deg, #452770 0%, #30194f 60%, #241138 100%);
+  transition: transform 1s var(--ease);
+  transform-origin: 50% 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.envelope__front-inner {
+  margin-top: 9%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.envelope__greeting {
+  font-size: clamp(1.3rem, 6vw, 1.9rem);
+  color: var(--lavender);
+  text-shadow: 0 2px 14px rgba(139, 92, 246, 0.5);
+}
+
+.envelope__seal {
+  font-size: clamp(1.5rem, 7vw, 2.1rem);
+  width: clamp(46px, 12vw, 62px);
+  height: clamp(46px, 12vw, 62px);
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 25%, #b78cf5, #6d3cc7 60%, #4c1d95);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  transition: transform 0.6s var(--ease);
+}
+
+/* Al hacer hover / tap */
+.envelope:hover .envelope__card,
+.envelope:focus-visible .envelope__card {
+  transform: translateY(-9px);
+}
+.envelope:hover .envelope__seal,
+.envelope:focus-visible .envelope__seal {
+  transform: scale(1.08) rotate(-4deg);
+}
+
+.envelope-stage__hint {
+  font-size: 0.68rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(196, 181, 253, 0.45);
+}
+
+/* ---------- Carta abierta ---------- */
+
+.letter-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  perspective: 1600px;
+}
+
+.letter {
+  position: relative;
+  width: min(94vw, 640px);
+  max-height: 84dvh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px 6px 18px 18px;
+  padding: clamp(1.6rem, 5vw, 3rem) clamp(1.25rem, 5vw, 3.2rem) 1.1rem;
+  background: linear-gradient(178deg, #fbf8ff 0%, #f3ecff 55%, #eae0ff 100%);
+  color: #2c1650;
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(196, 181, 253, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  opacity: 0;
+  transform: translateY(60px) rotateX(22deg) scale(0.9);
+  transition: opacity 0.9s var(--ease), transform 1.05s var(--ease);
+  overflow: hidden;
+}
+
+.letter.is-open {
+  opacity: 1;
+  transform: none;
+}
+
+/* Textura sutil de papel */
+.letter::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+      0deg,
+      rgba(76, 29, 149, 0.025) 0 2px,
+      transparent 2px 4px
+    ),
+    radial-gradient(circle at 15% 12%, rgba(139, 92, 246, 0.07), transparent 45%);
+  pointer-events: none;
+}
+
+.letter__close {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #6b4aa8;
+  background: rgba(109, 60, 199, 0.09);
+  transition: background 0.3s ease, transform 0.3s var(--ease);
+  z-index: 2;
+}
+
+.letter__close:hover {
+  background: rgba(109, 60, 199, 0.2);
+  transform: rotate(90deg);
+}
+
+.letter__head {
+  display: flex;
+  justify-content: center;
+  margin-bottom: clamp(1rem, 4vw, 1.6rem);
+}
+
+.letter__head-tag {
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(76, 29, 149, 0.45);
+  padding-bottom: 0.7rem;
+  position: relative;
+}
+
+.letter__head-tag::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #a78bfa, transparent);
+}
+
+.letter__body {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+  scrollbar-width: thin;
+}
+
+.letter__line {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: letterLine 0.75s var(--ease) both;
+  animation-delay: var(--line-delay, 0ms);
+  color: #3a1f63;
+  font-size: clamp(0.95rem, 3.9vw, 1.03rem);
+  line-height: 1.85;
+  margin-bottom: 1.05em;
+}
+
+@keyframes letterLine {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.letter__line--lead {
+  color: #4c1d95;
+  font-weight: 500;
+}
+
+.letter__sign {
+  margin-top: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35rem;
+  opacity: 0;
+  animation: letterLine 0.8s var(--ease) both;
+  animation-delay: var(--line-delay, 0ms);
+}
+
+.letter__sign-line {
+  width: 52px;
+  height: 1px;
+  background: #a78bfa;
+}
+
+.letter__sign-name {
+  font-size: clamp(1.8rem, 8vw, 2.5rem);
+  color: #6d3cc7;
+}
+
+.letter__ps {
+  margin-top: 1.1rem;
+  padding-top: 0.9rem;
+  border-top: 1px dashed rgba(109, 60, 199, 0.28);
+  font-size: 0.84rem;
+  font-style: italic;
+  color: rgba(76, 29, 149, 0.68);
+  opacity: 0;
+  animation: letterLine 0.8s var(--ease) both;
+  animation-delay: var(--line-delay, 0ms);
+}
+
+.letter__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-top: 1.1rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(109, 60, 199, 0.14);
+  opacity: 0;
+  transition: opacity 0.7s ease 0.4s;
+}
+
+.letter.is-open .letter__nav,
+.letter.is-open .letter__counter {
+  opacity: 1;
+}
+
+.letter__arrow {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #6d3cc7;
+  border: 1px solid rgba(109, 60, 199, 0.28);
+  background: rgba(109, 60, 199, 0.07);
+  transition: background 0.3s ease, transform 0.3s var(--ease), color 0.3s ease;
+}
+
+.letter__arrow:hover:not(:disabled) {
+  background: #6d3cc7;
+  color: #fff;
+  transform: scale(1.06);
+}
+
+.letter__arrow:disabled {
+  opacity: 0.28;
+  cursor: not-allowed;
+}
+
+.letter__dots {
+  display: flex;
+  gap: 0.42rem;
+}
+
+.letter__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(109, 60, 199, 0.28);
+  transition: background 0.4s ease, transform 0.4s var(--ease);
+}
+
+.letter__dot.is-active {
+  background: #6d3cc7;
+  transform: scale(1.35);
+}
+
+.letter__counter {
+  text-align: center;
+  margin: 0.5rem 0 0;
+  font-size: 0.6rem;
+  letter-spacing: 0.24em;
+  color: rgba(76, 29, 149, 0.42);
+  opacity: 0;
+  transition: opacity 0.7s ease 0.4s;
+}
+
+@media (max-width: 420px) {
+  .letter {
+    max-height: 88dvh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .letter,
+  .envelope__card,
+  .envelope__front,
+  .envelope__glow,
+  .letter__line,
+  .letter__sign,
+  .letter__ps {
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

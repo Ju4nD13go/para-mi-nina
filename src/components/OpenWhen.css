@@ -1,0 +1,171 @@
+/* =========================================================
+   ABRE CUANDO...
+   ========================================================= */
+
+.open-when__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: clamp(0.8rem, 2.4vw, 1.1rem);
+}
+
+.ow-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  padding: clamp(1.8rem, 5vw, 2.4rem) 1.2rem 1.4rem;
+  border-radius: var(--radius);
+  background: linear-gradient(165deg, rgba(109, 60, 199, 0.24), rgba(33, 17, 50, 0.5));
+  border: 1px solid rgba(196, 181, 253, 0.2);
+  text-align: center;
+  overflow: hidden;
+  transition: transform 0.55s var(--ease), border-color 0.55s ease,
+    box-shadow 0.55s ease;
+}
+
+/* Sello de lacre */
+.ow-card::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--lavender);
+  box-shadow: 0 0 12px 2px rgba(196, 181, 253, 0.7);
+  opacity: 0.6;
+}
+
+.ow-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(196, 181, 253, 0.5);
+  box-shadow: 0 30px 66px -28px rgba(109, 60, 199, 0.9);
+}
+
+.ow-card__emoji {
+  font-size: clamp(1.7rem, 6vw, 2.2rem);
+  line-height: 1;
+  transition: transform 0.5s var(--ease);
+}
+
+.ow-card:hover .ow-card__emoji {
+  transform: scale(1.16) rotate(-5deg);
+}
+
+.ow-card__title {
+  font-size: 0.98rem;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.4;
+}
+
+.ow-card__cta {
+  margin-top: 0.3rem;
+  font-size: 0.58rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(196, 181, 253, 0.6);
+  transition: color 0.4s ease;
+}
+
+.ow-card:hover .ow-card__cta {
+  color: var(--lavender);
+}
+
+/* ---------- Modal ---------- */
+
+.ow-modal {
+  position: fixed;
+  inset: 0;
+  /* Por encima de la nav (60) para que nada la tape */
+  z-index: 95;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background: rgba(9, 5, 17, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: owFade 0.4s ease both;
+}
+
+@keyframes owFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.ow-modal__card {
+  position: relative;
+  width: min(100%, 460px);
+  padding: clamp(2rem, 6vw, 3rem) clamp(1.5rem, 5vw, 2.4rem);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  background: linear-gradient(165deg, #2c1749 0%, #1c0e2e 100%);
+  border: 1px solid rgba(196, 181, 253, 0.28);
+  box-shadow: 0 40px 100px -30px rgba(0, 0, 0, 0.95);
+  animation: owPop 0.55s var(--ease) both;
+}
+
+@keyframes owPop {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.ow-modal__close {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--lavender);
+  background: rgba(167, 139, 250, 0.12);
+  transition: background 0.3s ease, transform 0.3s var(--ease);
+}
+
+.ow-modal__close:hover {
+  background: rgba(167, 139, 250, 0.28);
+  transform: rotate(90deg);
+}
+
+.ow-modal__emoji {
+  display: block;
+  font-size: 2.8rem;
+  line-height: 1;
+  margin-bottom: 0.8rem;
+}
+
+.ow-modal__title {
+  font-size: clamp(1.9rem, 8vw, 2.6rem);
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 1rem;
+}
+
+.ow-modal__text {
+  color: var(--text-soft);
+  font-size: 0.98rem;
+  line-height: 1.8;
+}
+
+.ow-modal__sign {
+  display: block;
+  margin-top: 1.4rem;
+  font-size: 1.7rem;
+  color: var(--purple-light);
+}

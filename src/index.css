@@ -1,0 +1,339 @@
+/* =========================================================
+   TEMA GLOBAL — Un pedacito de nosotros
+   ========================================================= */
+
+:root {
+  /* Fondos */
+  --bg: #120b1f;
+  --bg-2: #211132;
+  --bg-3: #4c1d95;
+
+  /* Morados */
+  --purple: #6d3cc7;
+  --purple-bright: #8b5cf6;
+  --purple-light: #a78bfa;
+  --lavender: #c4b5fd;
+
+  /* Texto */
+  --text: #f8f5ff;
+  --text-soft: #d8cff0;
+  --white: #ffffff;
+
+  /* Utilidades */
+  --gradient-main: linear-gradient(135deg, #120b1f 0%, #211132 45%, #4c1d95 100%);
+  --gradient-purple: linear-gradient(135deg, #6d3cc7 0%, #8b5cf6 100%);
+  --gradient-text: linear-gradient(100deg, #c4b5fd 0%, #f8f5ff 45%, #a78bfa 100%);
+
+  --font-script: "Great Vibes", "Allura", cursive;
+  --font-body: "Poppins", "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --radius-sm: 12px;
+  --radius: 20px;
+  --radius-lg: 28px;
+
+  --shadow-soft: 0 18px 50px -20px rgba(18, 11, 31, 0.9);
+  --shadow-purple: 0 22px 60px -24px rgba(109, 60, 199, 0.75);
+
+  --maxw: 1120px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --nav-h: 58px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  /* Evita que la nav fija tape el inicio de cada sección */
+  scroll-padding-top: calc(var(--nav-h) + 14px);
+  /* Nada debe poder desplazar la página de lado, nunca.
+     Sin esto, un elemento decorativo sobredimensionado infla el
+     viewport en móvil y el menú fijo acaba fuera de pantalla. */
+  overflow-x: hidden;
+}
+
+@supports (overflow-x: clip) {
+  html,
+  body {
+    overflow-x: clip;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: var(--font-body);
+  font-weight: 300;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+body.is-locked {
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+p {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+a {
+  color: var(--lavender);
+}
+
+::selection {
+  background: rgba(139, 92, 246, 0.4);
+  color: var(--white);
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--purple), var(--bg-3));
+  border-radius: 999px;
+  border: 2px solid var(--bg);
+}
+
+/* ---------- Focus visible ---------- */
+:focus-visible {
+  outline: 2px solid var(--lavender);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* =========================================================
+   TIPOGRAFÍA COMPARTIDA
+   ========================================================= */
+
+.font-script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.section {
+  position: relative;
+  padding: clamp(4.5rem, 11vw, 8rem) clamp(1.15rem, 5vw, 2.5rem);
+  scroll-margin-top: var(--nav-h);
+}
+
+.section-inner {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--purple-light);
+  font-weight: 400;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--purple-light));
+}
+
+.title-script {
+  font-family: var(--font-script);
+  font-size: clamp(2.7rem, 11vw, 4.6rem);
+  line-height: 1.05;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.title-plain {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: clamp(1.55rem, 5.4vw, 2.2rem);
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.lead {
+  color: var(--text-soft);
+  font-size: clamp(0.95rem, 3.6vw, 1.05rem);
+  max-width: 54ch;
+}
+
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-bottom: clamp(2.4rem, 7vw, 3.6rem);
+}
+
+.section-head--center {
+  align-items: center;
+  text-align: center;
+}
+
+.section-head--center .lead {
+  margin: 0 auto;
+}
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.95rem 2rem;
+  border-radius: 999px;
+  font-size: 0.86rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 400;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease),
+    background 0.4s var(--ease), color 0.4s var(--ease), opacity 0.3s ease;
+  will-change: transform;
+}
+
+.btn--primary {
+  color: var(--white);
+  background: var(--gradient-purple);
+  box-shadow: var(--shadow-purple);
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 28px 70px -22px rgba(139, 92, 246, 0.85);
+}
+
+.btn--primary:active {
+  transform: translateY(0) scale(0.985);
+}
+
+.btn--ghost {
+  color: var(--lavender);
+  border: 1px solid rgba(167, 139, 250, 0.4);
+  background: rgba(167, 139, 250, 0.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.btn--ghost:hover {
+  background: rgba(167, 139, 250, 0.14);
+  border-color: rgba(167, 139, 250, 0.7);
+  transform: translateY(-2px);
+}
+
+.btn:disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* ---------- Glass card ---------- */
+.glass {
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(196, 181, 253, 0.16);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+/* =========================================================
+   ANIMACIONES DE ENTRADA AL HACER SCROLL
+   ========================================================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Fundido al entrar/salir de pantalla ---------- */
+.fade-in {
+  animation: fadeIn 0.9s var(--ease) both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   PREFERS-REDUCED-MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 560px) {
+  :root {
+    --nav-h: 52px;
+  }
+}

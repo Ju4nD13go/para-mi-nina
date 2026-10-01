@@ -1,0 +1,154 @@
+/* =========================================================
+   REPRODUCTOR DE NUESTRA CANCIÓN
+   ========================================================= */
+
+.music {
+  position: fixed;
+  right: clamp(0.9rem, 3vw, 1.5rem);
+  bottom: clamp(0.9rem, 3vw, 1.5rem);
+  /* 50: por encima del contenido, pero por debajo de la nav (60)
+     y del modal "Abre cuando" (95), para que el menú móvil y el
+     diálogo lo tapen y no queden flotando encima. */
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  max-width: calc(100vw - 1.8rem);
+}
+
+.music__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--lavender);
+  background: rgba(18, 11, 31, 0.82);
+  border: 1px solid rgba(196, 181, 253, 0.22);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow: 0 12px 34px -16px rgba(0, 0, 0, 0.9);
+  transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease,
+    transform 0.4s var(--ease);
+}
+
+.music__btn:hover {
+  background: rgba(76, 29, 149, 0.65);
+  color: var(--white);
+  border-color: rgba(196, 181, 253, 0.45);
+  transform: translateY(-2px);
+}
+
+.music__btn.is-playing {
+  color: var(--white);
+  border-color: rgba(196, 181, 253, 0.55);
+  background: rgba(76, 29, 149, 0.7);
+}
+
+.music__icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(167, 139, 250, 0.2);
+  color: inherit;
+  padding-left: 1px;
+}
+
+.music__label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 42vw;
+  text-align: left;
+}
+
+/* Barritas de "sonando" */
+.music__eq {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.music__btn.is-playing .music__eq {
+  opacity: 1;
+}
+
+.music__eq i {
+  width: 2px;
+  height: 3px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.music__btn.is-playing .music__eq i {
+  animation: musicEq 0.9s ease-in-out infinite;
+}
+
+.music__btn.is-playing .music__eq i:nth-child(2) {
+  animation-delay: 0.18s;
+}
+.music__btn.is-playing .music__eq i:nth-child(3) {
+  animation-delay: 0.36s;
+}
+
+@keyframes musicEq {
+  0%,
+  100% {
+    height: 3px;
+  }
+  50% {
+    height: 12px;
+  }
+}
+
+/* Aviso de archivo faltante */
+.music__hint {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: 260px;
+  padding: 0.5rem 0.7rem;
+  border-radius: 12px;
+  font-size: 0.68rem;
+  line-height: 1.45;
+  color: #f0d9b5;
+  background: rgba(69, 40, 12, 0.85);
+  border: 1px solid rgba(240, 217, 181, 0.28);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-align: left;
+}
+
+.music__hint code {
+  font-size: 0.64rem;
+  padding: 0.05rem 0.25rem;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  word-break: break-all;
+}
+
+@media (max-width: 420px) {
+  .music__label {
+    max-width: 34vw;
+  }
+  .music__hint {
+    max-width: 200px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .music__btn.is-playing .music__eq i {
+    animation: none !important;
+  }
+}
